@@ -76,9 +76,9 @@ class StocksDP_AtMostTwo {
         // atmost two = either 1 or 2 so size is 3.
         int dp[2][2][3];
         
-        for(int i=0;i<2;i++)
-            for(int j=0;j<2;j++)
-                for(int k=0;k<3;k++)
+        for(int i=0;i<2;i++) // LCS optimised array
+            for(int j=0;j<2;j++) // Buy or sell
+                for(int k=0;k<3;k++) // no.of transactions
                     dp[i][j][k]=0;
         
         int ci=1;

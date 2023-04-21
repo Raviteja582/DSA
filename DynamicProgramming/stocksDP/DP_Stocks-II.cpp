@@ -126,6 +126,8 @@ class StocksDP_Unlimited {
   /*
       T.C = O(N)
       S.C = Constant space.
+      0 -> sell
+      1 -> buy
   */
   int maxProfit_tabulation(int n, const int arr[]) {
     int dp[2][2];

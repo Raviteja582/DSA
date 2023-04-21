@@ -12,64 +12,36 @@ vector<bool> marked;
     please check prims_sparse.cpp for set implemention on sparse graphs
     and prims_dense.cpp for dense graphs.
 */
-ll prim(int x, vector<vpp> &adj)
+class Solution
 {
-    MinHeap<pair<ll, ll>> Q;
-    for (int i = 1; i < adj.size(); i++)
+	public:
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+    int spanningTree(int V, vector<vector<int>> adj[])
     {
-        Q.insert({INF, i});
-    }
-    ll y;
-    ll minimumCost = 0;
-    vector<int> darr(adj.size(), INF);
-    pair<ll, ll> p;
-    Q.decrease_key({INF, x}, {0, x});
-    darr[x] = 0;
-    while (Q.heap_size != 0)
-    {
-        p = Q.get_min();
-        Q.extract_min();
-        x = p.second;
-        if (marked[x] == true)
-            continue;
-        minimumCost += p.first;
-        marked[x] = true;
-        for (int i = 0; i < adj[x].size(); ++i)
-        {
-            y = adj[x][i].second;
-            if (marked[y] == false && adj[x][i].first < darr[y])
-            {
-                int tmp = darr[y];
-                darr[y] = adj[x][i].first;
-                Q.decrease_key({tmp, y}, adj[x][i]);
+        int tw = 0;
+        vector<int> min_w(V, INT_MAX);
+        vector<bool> vis(V, false);
+        min_w[0]=0;
+        
+        priority_queue<pair<int,int>> q;
+        q.push({-0, 0});
+        for(int i=0;i<V;i++) {
+            pair<int,int> p1 = q.top(); q.pop();
+            if(vis[p1.second]) {
+                i--;
+                continue;
+            }
+            int dist = -p1.first;
+            tw+=dist;
+            vis[p1.second]=true;
+            // cout<<dist<<" "<<p1.second<<"\n";
+            for(auto neigh: adj[p1.second]) {
+                if(!vis[neigh[0]] && (min_w[neigh[0]] > neigh[1])) {
+                    min_w[neigh[0]] = neigh[1];
+                    q.push({-min_w[neigh[0]], neigh[0]});
+                }
             }
         }
+        return tw;
     }
-    return minimumCost;
-}
-
-int main()
-{
-    int v, e;
-    cin >> v >> e;
-    vector<vpp> adj(v + 1);
-    marked.resize(v + 1);
-    for (int i = 0; i < e; i++)
-    {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back({w, v});
-        adj[v].push_back({w, u});
-    }
-    int k;
-    cin >> k;
-    clock_t begin = clock();
-    ll minimumCost = prim(k, adj);
-    clock_t end = clock();
-    ofstream fout;
-    fout.open("tmp/bin_time", ios::out | ios::app);
-    fout << 1.0 * (end - begin) / CLOCKS_PER_SEC << endl;
-    fout.close();
-    cout << minimumCost << endl;
-    return 0;
-}
+};

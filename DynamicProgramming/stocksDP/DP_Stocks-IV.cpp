@@ -19,7 +19,7 @@ class StocksDP_AtMostK {
                 b) recursion with memorization
                 c) tabulation
     */
-    // I am only writing 2 way with tabulation code, which will be similar to DP-Stocks-III maxProfit_without_count_tabulation.
+    // I am only writing 2.c) way with tabulation code, which will be similar to DP-Stocks-III maxProfit_without_count_tabulation.
 
     int maxProfit_tabulation(
         int k,
