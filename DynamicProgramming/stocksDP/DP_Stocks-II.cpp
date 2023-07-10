@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cstring>
 #include <vector>
 using namespace std;
 
@@ -131,12 +132,12 @@ class StocksDP_Unlimited {
   */
   int maxProfit_tabulation(int n, const int arr[]) {
     int dp[2][2];
-    dp[0][0] = arr[n - 1];
-    dp[0][1] = 0;
+    memset(dp, 0, sizeof(dp));
+
     int ci = 1;
-    for (int i = n - 2; i >= 0; i--) {
-      dp[ci][0] = max(arr[i] + dp[1 - ci][1], dp[1 - ci][0]);
-      dp[ci][1] = max(dp[1 - ci][0] - arr[i], dp[1 - ci][1]);
+    for (int i = n - 1; i >= 0; i--) {
+      dp[ci][0] = max(arr[i] + dp[1 - ci][1], dp[1 - ci][0]); // sell
+      dp[ci][1] = max(dp[1 - ci][0] - arr[i], dp[1 - ci][1]); // buy
       ci = 1 - ci;
     }
     return dp[1 - ci][1];

@@ -28,7 +28,7 @@ void bfs_undirected(int node, int n,int &ans){
 
 
 // directed+unweighted
-void bfs_weighted(int node, int n, int &ans) {
+void bfs_directed(int node, int n, int &ans) {
     vector<int> dist(n+1, INT_MAX);
     dist[node]=0;
     queue<int> q;

@@ -81,8 +81,10 @@ class StocksDP_AtMostTwo {
                 for(int k=0;k<3;k++) // no.of transactions
                     dp[i][j][k]=0;
         
+        // or memset(dp, 0, sizeof(dp));
+
         int ci=1;
-        for(int i=n-1;i>=n;i++){
+        for(int i=n-1;i>=0;i--){
             for(int count=1;count<=2;count++){
                 dp[ci][0][count] = max(
                     dp[1-ci][1][count-1] + arr[i],
@@ -124,12 +126,11 @@ class StocksDP_AtMostTwo {
                 )
             }
             for this method also we have:
-                recursion without memorization dp(ind, pos)
                 recursion with memorization dp(ind, pos, dp[ind][pos])
                 tabulation with optimization which is below.
     */
     int maxProfit_without_count_tabulation(int n, int arr[]) {
-
+        // time: O(N*4)
         int dp[2][4];
         // outside the stock the values are 0
         memset(dp, 0, sizeof(dp));
