@@ -1,8 +1,5 @@
 #include<bits/stdc++.h>
 #include <iostream>
-#include <iterator>
-#include <queue>
-#include <stack>
 #include <utility>
 #include <vector>
 using namespace std;
