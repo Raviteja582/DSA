@@ -1,6 +1,7 @@
 # Dijkstra on Dense Graph:
 ## works for both directed & undirected with weighted graphs.
-    - used to find the shortest path from source $s$ to all other vertices.
+    
+- used to find the shortest path from source 'S' to all other vertices.
 
 ## Algorithm: 
 ## 1. It runs for n iterations, at each iteration a vertex $v$ is choosen as unmarked vertex which has the least value.
