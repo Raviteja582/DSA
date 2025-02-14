@@ -14,7 +14,7 @@ class Solution {
             int c2 = median - c1;
 
             int l1 = c1==0 ? INT_MIN : nums1[c1-1];
-            int l2 = c2==0 ? INT_MIN : nums1[c2-1];
+            int l2 = c2==0 ? INT_MIN : nums2[c2-1];
             int r1 = c1==n ? INT_MAX : nums1[c1];
             int r2 = c2==m ? INT_MAX : nums2[c2];
 

@@ -125,11 +125,62 @@ void convertToArray(string &input) {
 
 bool cmp(pair<int, int> &a, pair<int, int> &b) { return a.first < b.first; }
 
+int check_log_history(const vector<string> &events) {
+  stack<int> acquire_stack;
+  unordered_set<int> acquired_locks;
 
+  for (size_t i = 0; i < events.size(); ++i) {
+    istringstream ss(events[i]);
+    string action;
+    int lock_id;
+    ss >> action >> lock_id; // Parse action and lock ID
+
+    if (action == "ACQUIRE") {
+      // Rule: Lock should not be acquired twice
+      if (acquired_locks.count(lock_id)) {
+        return i + 1;
+      }
+      acquire_stack.push(lock_id);
+      acquired_locks.insert(lock_id);
+    } else if (action == "RELEASE") {
+      // Rule: Lock should not be released if never acquired
+      if (acquired_locks.count(lock_id) == 0) {
+        return i + 1;
+      }
+      // Rule: Locks should be released in LIFO order
+      if (acquire_stack.top() != lock_id) {
+        return i + 1;
+      }
+      acquire_stack.pop();
+      acquired_locks.erase(lock_id);
+    }
+  }
+
+  // If the stack is not empty, it means there are dangling acquired locks
+  return acquire_stack.empty() ? 0 : events.size() + 1;
+}
+
+int checkPalindrome(const string &s) {
+  vector<vector<bool>> isPali(s.size(), vector<bool>(s.size(), false));
+  int count=0;
+  for (int i = 0; i < s.size(); i++) {
+    int x = 0, y = i;
+    while (x < s.size() && y < s.size()) {
+      if (s[x] == s[y] && (x == y || y == x + 1 || isPali[x + 1][y - 1])) {
+        isPali[x][y] = true;
+        count++;
+      }
+      x++;
+      y++;
+    }
+  }
+
+  return count;
+}
 
 int main() {
-  vector<int> v={2,3,4,5,6,9};
-  int indx = upper_bound(v.begin(), v.end(), 1) - v.begin();
-  cout<<indx;
+  vector<string> v = {"ACQUIRE 123", "ACQUIRE 364", "ACQUIRE 84",
+                      "RELEASE 84",  "RELEASE 364", "ACQUIRE 456"};
+  cout << checkPalindrome("wowpurerocks");
   return 0;
 }

@@ -10,16 +10,22 @@ class Solution {
             return kthElement(arr2, arr1, m, n, k);
 
         /*
+            arr1 -> n
+            arr2 -> m
+            n<m always
+            no.of elements of arr1 <= arr2
+        */
+        /*
             if n=7, m=11 and k=15,
             then if take 0 from arr1, then we cannot take 15 from arr2,
             so there should a min elements needs to take from arr1, 
-            i.e k-m elements, which are extra elements requiring by arr2 to reach k position.
+            i.e k-m elements, which are extra elements requiring in arr1 to reach k position.
         */
         int low=max(0,k-m);
         /*
             if n=7, m=11 and k=4
             then kth position will already present in arr1,
-            so to consider arr2 elements we limit the range to k, such that
+            so to consider arr2 elements we limit the range to k in arr1, such that
             we can take few from arr2.
         */
         int high=min(k,n), pos=k;
